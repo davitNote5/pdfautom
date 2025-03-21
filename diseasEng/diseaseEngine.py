@@ -12,7 +12,7 @@ load_dotenv()
 # OpenAI API client
 client = openai.OpenAI()
 # OpenAI Assistant ID
-assistant_id = "asst_lGUYZiorUKdHx78buMvGMON6"
+assistant_id = "asst_ugMOPS8hWwcUBYlT95sfJPXb"
 
 
 # Callback function to disable the button
