@@ -15,8 +15,6 @@ load_dotenv()
 extractionResults = []  # global variable available throughout the notebook
 
 def clean_medications(medications_str, pain_medications_str):
-
-
     # Split into lists
     meds_list = [m.strip() for m in medications_str.split('--') if m.strip()]
     pain_list = [p.strip() for p in pain_medications_str.split('--') if p.strip()]
@@ -30,6 +28,9 @@ def clean_medications(medications_str, pain_medications_str):
         meds_list = [m for m in meds_list if 'tylenol' not in m.lower()]
         if not tylenol_in_pain:
             pain_list.append(tylenol_in_meds[0])
+
+    # 🔁 Recalculate tylenol presence after modification
+    tylenol_in_pain = any('tylenol' in p.lower() for p in pain_list)
 
     # Step 2: If Tylenol is not in either list
     if not tylenol_in_meds and not tylenol_in_pain:
@@ -52,11 +53,12 @@ def clean_medications(medications_str, pain_medications_str):
                     meds_list.append(med)
         pain_list = filtered_pain
 
-    # Update back to string format
+    # Convert lists back to strings
     updated_medications = ' -- '.join(meds_list)
     updated_pain_medications = ' -- '.join(pain_list)
 
     return updated_medications, updated_pain_medications
+
 
 def count_occurrences_of_flags(words_to_count,text):
     text_lower = text.lower()  # Convert text to lowercase for case-insensitive matching
